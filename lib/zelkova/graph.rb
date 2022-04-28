@@ -25,9 +25,9 @@ class Zelkova::Graph
     @depth = T.let(0, Integer)
   end
 
-  sig { params(word: String).returns(Zelkova::Node) }
-  def add_node(word)
-    node = Zelkova::Node.new(word, self)
+  sig { params(word: String, metadata: T.nilable(T::Hash[T.untyped, T.untyped])).returns(Zelkova::Node) }
+  def add_node(word, metadata = {})
+    node = Zelkova::Node.new(word, self, metadata)
     nodes << node
 
     if @root_node.nil?

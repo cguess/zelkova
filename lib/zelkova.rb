@@ -15,6 +15,7 @@ module Zelkova
 
     sig { returns(Zelkova::Graph) }
     def graph
+      # TODO: make this lazy when in development mode for speed
       @@graph
     end
   end
