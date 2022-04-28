@@ -6,6 +6,11 @@ class ZelkovaTest < Minitest::Test
     assert_not_nil ::Zelkova::VERSION
   end
 
+  def test_that_we_can_create_a_search_tree
+    assert_not_nil(Zelkova.graph)
+    assert Zelkova.graph.class == Zelkova::Graph
+  end
+
   def test_that_we_can_create_a_node
     graph = Zelkova::Graph.new
 
