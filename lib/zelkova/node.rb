@@ -24,7 +24,7 @@ class Zelkova::Node
 
   sig { returns(String) }
   def inspect
-    "Word: #{self.word}, Number of Edges: #{self.edges.count}"
+    "Word: #{self.word}, Number of Edges: #{self.edges.count}, Metadata: #{self.metadata}"
   end
 
   sig { params(node: Zelkova::Node, weight: Integer).void }

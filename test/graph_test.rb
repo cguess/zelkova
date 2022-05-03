@@ -8,6 +8,17 @@ class GraphTest < Minitest::Test
     assert_not_nil graph
   end
 
+  def test_that_we_can_rest_a_graph
+    graph = Zelkova::Graph.new
+
+    graph.add_node("testword")
+    graph.add_node("secondword")
+
+    graph.reset
+
+    assert graph.nodes.count.zero?
+  end
+
   def test_that_we_can_build_a_graph
     graph = Zelkova::Graph.new
 

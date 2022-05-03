@@ -18,11 +18,23 @@ class Zelkova::Graph
   sig { returns(Integer) }
   attr_reader :depth
 
-  sig { void }
-  def initialize
+  sig { returns(Integer) }
+  attr_accessor :radius
+
+  sig { params(radius: T.nilable(Integer)).void }
+  def initialize(radius = 2)
     @root_node = T.let(nil, T.nilable(Zelkova::Node))
     @nodes = T.let([], T::Array[Zelkova::Node])
     @depth = T.let(0, Integer)
+
+    @radius = T.let(T.must(radius), Integer)
+  end
+
+  sig { void }
+  def reset
+    @root_node = nil
+    @nodes = []
+    @depth = 0
   end
 
   sig { params(word: String, metadata: T.nilable(T::Hash[T.untyped, T.untyped])).returns(Zelkova::Node) }
@@ -60,9 +72,9 @@ class Zelkova::Graph
     node
   end
 
-  sig { params(query: String).returns(T::Array[String]) }
+  sig { params(query: String).returns(T::Array[T::Hash[Zelkova::Node, Float]]) }
   def search(query)
-    radius = 2
+    radius = @radius
     candidate_nodes = []
     candidate_edges = []
 
@@ -85,20 +97,6 @@ class Zelkova::Graph
     end
 
     candidate_nodes.sort_by! { |candidate_node| candidate_node[:distance] }
-    candidate_nodes.map { |candidate_node| candidate_node[:node].word }
+    candidate_nodes
   end
 end
-
-# class Comparator
-#   extend T::Sig
-
-#   sig { params(dhash_1: String, dhash_2: String).returns(Integer) }
-#   def self.compare(dhash_1, dhash_2)
-#     hamming_distance = 0
-#     dhash_1.chars.each_with_index do |character, index|
-#       hamming_distance += 1 if character != dhash_2.chars[index]
-#     end
-
-#     hamming_distance + (dhash_1.length - dhash_2.length).abs
-#   end
-# end
