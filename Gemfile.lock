@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zelkova (0.1.0)
+    zelkova (0.1.1)
       eikon
 
 GEM
